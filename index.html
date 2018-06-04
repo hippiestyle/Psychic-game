@@ -35,10 +35,17 @@
             var losses = 0; 
             var guessesLeft = 9; 
             var guessesThusFar = 0; 
+            var finalLetter; 
+
+                
 
             var userWins = function() {
                 wins++;
                 document.querySelector("#user-wins").innerHTML = wins;
+                finalLetter = randomLetter(); 
+                guessesLeft = 9; 
+                document.querySelector("#guesses-left").innerHTML = guessesLeft;
+
             }  
             
             var userLoses = function() {
@@ -61,19 +68,26 @@
                 //reset the game
             }
 
+            var randomLetter = function() {
+                var letters = "abcdefghijklmnopqrstuvwxyz";
+                var randomIndex = Math.floor((Math.random() * letters.length));
+                return letters[randomIndex];  
+                  
+            };
+
+            finalLetter = randomLetter(); 
+            console.log("Computer Letter: " + finalLetter);
 
     document.onkeyup = function(event) {
         var userChoice = event.key; 
         console.log("User Choice is " + userChoice);
         
+
         userGuesses(); 
         guessesSoFar(); 
-        
-
-            var randomLetter = Math.round(Math.random()*100);
-            console.log(randomLetter);
-
-            if (userChoice === randomLetter) {
+        randomLetter(); 
+            
+            if (userChoice === finalLetter) {
                 userWins(); 
             } else {
                 userLoses(); 
