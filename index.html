@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="/assets/css/style.css"> -->
+        <title>Psychic Game</title>
+
+    </head>
+    
+    <body>
+        <header class="topHeader"><h1>Psychic Game</h1></header>
+        
+        <div class="titles">
+            <div>Guess What Letter I'm Thinking Of
+             </div>
+                <br>
+
+            <div>Wins: <span id="user-wins">0</span>
+            </div>
+
+            <div>Losses: <span id="user-losses">0</span>
+            </div>
+
+            <div>Guesses Left:  <span id="guesses-left">9</span>
+            </div>
+
+            <div>Guesses So Far: <span id="guesses-sofar">0</span>
+            </div>
+
+
+        </div>
+
+         <script type="text/javascript">
+
+            var wins = 0; 
+            var losses = 0; 
+            var guessesLeft = 9; 
+            var guessesThusFar = 0; 
+
+            var userWins = function() {
+                wins++;
+                document.querySelector("#user-wins").innerHTML = wins;
+            }  
+            
+            var userLoses = function() {
+                losses++; 
+                document.querySelector("#user-losses").innerHTML = losses;
+            }
+
+            var userGuesses = function() {
+                guessesLeft--;
+                document.querySelector("#guesses-left").innerHTML = guessesLeft;
+            }
+
+            var guessesSoFar = function () {
+                guessesThusFar++; 
+                document.querySelector("#guesses-sofar").innerHTML = guessesThusFar;
+
+            }
+
+            var userWonOrLost = function() {
+                //reset the game
+            }
+
+
+    document.onkeyup = function(event) {
+        var userChoice = event.key; 
+        console.log("User Choice is " + userChoice);
+        
+        userGuesses(); 
+        guessesSoFar(); 
+        
+
+            var randomLetter = Math.round(Math.random()*100);
+            console.log(randomLetter);
+
+            if (userChoice === randomLetter) {
+                userWins(); 
+            } else {
+                userLoses(); 
+            }
+
+            if (guessesLeft == 0) {
+                alert("GAME OVER");
+            }
+
+    }            
+
+        </script>    
+    </body>
+
+</html>
