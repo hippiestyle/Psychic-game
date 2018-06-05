@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- <link rel="stylesheet" href="/assets/css/style.css"> -->
+        <link rel="stylesheet" href="/assets/css/style.css">
         <title>Psychic Game</title>
 
     </head>
@@ -23,83 +23,99 @@
             <div>Guesses Left:  <span id="guesses-left">9</span>
             </div>
 
-            <div>Guesses So Far: <span id="guesses-sofar">0</span>
+            <div>Guesses So Far: <span id="guesses-sofar"></span>
             </div>
 
 
         </div>
 
-         <script type="text/javascript">
+        <script type="text/javascript">
 
-            var wins = 0; 
-            var losses = 0; 
-            var guessesLeft = 9; 
-            var guessesThusFar = 0; 
-            var finalLetter; 
-
+            var wins = 0;
+            var losses = 0;
+            var guessesLeft = 9;
+            var guessesThusFar = [];
+            var finalLetter;
+ 
                 
-
+ 
             var userWins = function() {
                 wins++;
                 document.querySelector("#user-wins").innerHTML = wins;
-                finalLetter = randomLetter(); 
-                guessesLeft = 9; 
+                finalLetter = randomLetter();
+                guessesLeft = 9;
                 document.querySelector("#guesses-left").innerHTML = guessesLeft;
-
+ 
             }  
             
             var userLoses = function() {
-                losses++; 
+                losses++;
                 document.querySelector("#user-losses").innerHTML = losses;
+                finalLetter = randomLetter();
+                guessesLeft = 9;
+                document.querySelector("#guesses-left").innerHTML = guessesLeft;
             }
-
+ 
             var userGuesses = function() {
                 guessesLeft--;
                 document.querySelector("#guesses-left").innerHTML = guessesLeft;
             }
-
-            var guessesSoFar = function () {
-                guessesThusFar++; 
-                document.querySelector("#guesses-sofar").innerHTML = guessesThusFar;
-
+ 
+            var guessesSoFar = function(choice) {
+                guessesThusFar.push(choice);
+                document.querySelector("#guesses-sofar").innerHTML = guessesThusFar.join(" ");
+ 
             }
-
+ 
             var userWonOrLost = function() {
                 //reset the game
             }
 
+            // var reset = function() {
+            // var guessesLeft = 9;
+            // var guessesThusFar = [];
+            // var finalLetter;
+            // }
+ 
             var randomLetter = function() {
                 var letters = "abcdefghijklmnopqrstuvwxyz";
                 var randomIndex = Math.floor((Math.random() * letters.length));
                 return letters[randomIndex];  
                   
             };
-
-            finalLetter = randomLetter(); 
+ 
+            finalLetter = randomLetter();
             console.log("Computer Letter: " + finalLetter);
-
+ 
     document.onkeyup = function(event) {
-        var userChoice = event.key; 
-        console.log("User Choice is " + userChoice);
+        var userChoice = event.key;
         
-
-        userGuesses(); 
-        guessesSoFar(); 
-        randomLetter(); 
+        userGuesses();
             
             if (userChoice === finalLetter) {
-                userWins(); 
+                userWins();
+                guessesThusFar = [];
+                document.querySelector("#guesses-sofar").innerHTML = guessesThusFar.join(" ");
+                alert("Wow You're Psychic, You Won! Want to play again?")
+                reset(); 
+                
+
             } else {
-                userLoses(); 
+                guessesSoFar(userChoice);  
             }
-
+ 
             if (guessesLeft == 0) {
+                userLoses();
                 alert("GAME OVER");
+                guessesThusFar = [];
+                document.querySelector("#guesses-sofar").innerHTML = guessesThusFar.join(" ");
+                reset(); 
+
             }
-
+ 
     }            
-
-        </script>    
+ 
+        </script>
     </body>
 
 </html>
